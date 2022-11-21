@@ -19,15 +19,13 @@ func AllocateTeamsToPlayers(players []string, availableTeams []string) map[strin
 			}
 			fmt.Println("Number of teams left in the draw ", len(availableTeams))
 
-			min := 0
-			max := len(availableTeams) - 1
+			max := len(availableTeams)
 
 			randomTeamNumber := 0
 
-			if max > 0 {
-				randomTeamNumber = generateRandomNumber(min, max)
-			}
-			fmt.Printf(fmt.Sprintf("Players: %s has drawn the team %s", player, availableTeams[randomTeamNumber]))
+			randomTeamNumber = generateRandomNumber(max)
+
+			fmt.Println(fmt.Sprintf("Players: %s has drawn the team %s", player, availableTeams[randomTeamNumber]))
 
 			playerSelections[player] = append(playerSelections[player], availableTeams[randomTeamNumber])
 
@@ -52,7 +50,7 @@ func stringSliceDelete(slice []string, i int) []string {
 	return slice[:len(slice)-1]
 }
 
-func generateRandomNumber(min, max int) int {
+func generateRandomNumber(max int) int {
 	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(max-min) + min
+	return rand.Intn(max)
 }
